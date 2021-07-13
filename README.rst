@@ -18,3 +18,8 @@ Basics
 =========
 
 This package converts combines NeuroRD files into SBML files. NeuroRD divides the model up into several sections in the form of XML files: Reacting species, Reactions and rate parameters, initital conditions and morphology files. Here, we take these files and use the simple0sbml package to construct a corresponding SBML file with appropriate units.
+
+Requirements
+===========
+You need to install libsbml and simplesbml::
+    $ pip install python-libsbml simplesbml
