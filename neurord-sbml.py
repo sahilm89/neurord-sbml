@@ -137,11 +137,11 @@ def main(args):
     size = size_micron_cubed * micron_cube_to_litre # micron-cube to litres
     #comp = 'c1' # Using the default SBML compartment
     isConc = True # Input will be in concentration units (mol/L)
-    model = simplesbml.sbmlModel(sub_units='nM', time_units='ms')
-    compartment = model.getCompartment(0)
-    compartment.setVolume(size)
-    compartment.setId(comp)
-    compartment.setName(comp)
+    model = simplesbml.SbmlModel(sub_units='nM', time_units='ms')
+    compartment = model.addCompartment(size, comp)
+ #   compartment.setVolume(size)
+ #   compartment.setId(comp)
+ #   compartment.setName(comp)
     
     
     ### Units
