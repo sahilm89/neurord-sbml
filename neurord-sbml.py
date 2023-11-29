@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import time
 from xml.etree import ElementTree as ET
 
 import libsbml
@@ -9,7 +10,7 @@ import simplesbml
 micron_cube_to_litre = 1e-15
 
 
-## Validation
+# Validation
 class validateSBML:
     def __init__(self, ucheck):
         self.reader = libsbml.SBMLReader()
@@ -18,7 +19,7 @@ class validateSBML:
 
     def validate(self, file):
         if not os.path.exists(file):
-            print("[Error] %s : No such file." % infile)
+            print("[Error] %s : No such file." % file)
             self.numinvalid += 1
             return
 
