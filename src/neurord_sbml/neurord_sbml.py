@@ -12,14 +12,16 @@ micron_cube_to_litre = 1e-15
 
 # Validation
 class validateSBML:
-    def __init__(self, ucheck):
+    def __init__(self, ucheck, silent):
         self.reader = libsbml.SBMLReader()
         self.ucheck = ucheck
+        self.silent = silent
         self.numinvalid = 0
 
     def validate(self, file):
         if not os.path.exists(file):
-            print("[Error] %s : No such file." % file)
+            if not self.silent:
+                print("[Error] %s : No such file." % file)
             self.numinvalid += 1
             return
 
@@ -90,36 +92,38 @@ class validateSBML:
 
         # print results
         #
+        if not self.silent:
+            print("                 filename : %s" % file)
+            print("         file size (byte) : %d" % (os.path.getsize(file)))
+            print("           read time (ms) : %f" % timeRead)
 
-        print("                 filename : %s" % file)
-        print("         file size (byte) : %d" % (os.path.getsize(file)))
-        print("           read time (ms) : %f" % timeRead)
+            if not skipCC:
+                print("        c-check time (ms) : %f" % timeCC)
+            else:
+                print("        c-check time (ms) : skipped")
 
-        if not skipCC:
-            print("        c-check time (ms) : %f" % timeCC)
-        else:
-            print("        c-check time (ms) : skipped")
+            print("      validation error(s) : %d" % (numReadErr + numCCErr))
+            if not skipCC:
+                print("    (consistency error(s)): %d" % numCCErr)
+            else:
+                print("    (consistency error(s)): skipped")
 
-        print("      validation error(s) : %d" % (numReadErr + numCCErr))
-        if not skipCC:
-            print("    (consistency error(s)): %d" % numCCErr)
-        else:
-            print("    (consistency error(s)): skipped")
+            print("    validation warning(s) : %d" % (numReadWarn + numCCWarn))
+            if not skipCC:
+                print("  (consistency warning(s)): %d" % numCCWarn)
+            else:
+                print("  (consistency warning(s)): skipped")
 
-        print("    validation warning(s) : %d" % (numReadWarn + numCCWarn))
-        if not skipCC:
-            print("  (consistency warning(s)): %d" % numCCWarn)
-        else:
-            print("  (consistency warning(s)): skipped")
+            if errMsgRead or errMsgCC:
+                print()
+                print("===== validation error/warning messages =====\n")
+                if errMsgRead:
+                    print(errMsgRead)
+                if errMsgCC:
+                    print("*** consistency check ***\n")
+                    print(errMsgCC)
+        return numCCErr + numCCWarn + numReadErr + numReadWarn
 
-        if errMsgRead or errMsgCC:
-            print()
-            print("===== validation error/warning messages =====\n")
-            if errMsgRead:
-                print(errMsgRead)
-            if errMsgCC:
-                print("*** consistency check ***\n")
-                print(errMsgCC)
 
 
 def main(args):
