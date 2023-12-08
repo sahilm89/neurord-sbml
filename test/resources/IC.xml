@@ -1,0 +1,8 @@
+<InitialConditions>
+  <ConcentrationSet>
+    <NanoMolarity specieID="Ca" value="0"/>
+    <NanoMolarity specieID="CaOut" value="1900000"/>
+    <NanoMolarity specieID="PMCA" value="22000"/>
+    <NanoMolarity specieID="PMCACa" value="0"/>..()
+  </ConcentrationSet>
+</InitialConditions>

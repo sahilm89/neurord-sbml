@@ -1,0 +1,30 @@
+<ReactionScheme>
+  
+  <Specie name="Ca" id="Ca" kdiff="174.2" kdiffunit="mu2/s"/>
+  <Specie name="CaOut" id="CaOut" kdiff="2." kdiffunit="mu2/s"/>
+  <Specie name="PMCA" id="PMCA" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="PMCACa" id="PMCACa" kdiff="0" kdiffunit="mu2/s"/>
+
+<!-- Ca pump high affinity -    Ca + PMCA <-> PMCACa -->
+    <Reaction name = "Ca_pump1a" id="Ca_pump1a">
+	<Reactant specieID="Ca"/>
+	<Reactant specieID="PMCA"/>
+	<Product specieID="PMCACa"/>
+
+	<forwardRate>0.5e-4</forwardRate>
+	<reverseRate>0.007</reverseRate>
+	<Q10>0.2</Q10>
+    </Reaction>
+
+<!-- Ca pump high affinity -    PMCACa <-> PMCA + CaOut -->
+    <Reaction name = "Ca_pump1b" id="Ca_pump1b">
+	<Reactant specieID="PMCACa"/>
+	<Product specieID="PMCA"/>
+	<Product specieID="CaOut"/>
+
+	<forwardRate>0.0035</forwardRate>
+	<reverseRate>0</reverseRate>
+	<Q10>0.2</Q10>
+    </Reaction>
+
+</ReactionScheme>
